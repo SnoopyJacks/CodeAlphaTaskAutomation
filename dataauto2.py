@@ -25,3 +25,27 @@ def organize_files(directory):
         #Skip directories
         if os.path.isdir(file_path):
             continue
+        
+    # Get file extension 
+    _, ext = os.path.splittext(filename)
+    
+    # Move file to corresponding folder
+    moved = False
+    for folder, extensions in file_types.items():
+        if ext.lower() in extensions:
+            destination = os.path.join(directory, folder, filename)
+            shutil.move(file_path, destination)
+            print(f"Moved '{filename}' to '{folder}/'")
+            moved = true
+            break
+        
+    # Optional: move unknown file types to 'Others' folder
+    if not moved:
+         others_path = os.path.join(directory, 'Others')
+        if not os.path.exists(others_path):
+            os.makedirs(others_path)
+        shutil.move(file_path, os.path.join(others_path, filename))
+        print(f"Moved '{filename}' to 'Others/'")
+        
+# Replace path below with target directory
+# Organize files ('/Users/yourname/Downloads')
